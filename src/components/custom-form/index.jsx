@@ -1,26 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { CustomInput } from "../custom-input";
 import Button from "@mui/material/Button";
 import { useStyles } from "./styles";
-export function CustomForm() {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expireDate, setExpireDate] = useState("");
-  const [cvc, setCvc] = useState("");
+import { CardInfoInputs } from "../card-info-inputs";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
+export function CustomForm() {
   const { classes } = useStyles();
 
-  const handleCardNumberInput = () => {
-    
-  }
-
   return (
-    <div className={classes.container}>
-      <CustomInput label="Email" placeholder="Email" />
-      <CustomInput label="Phone" placeholder="Phone" />
-      <CustomInput label="Card information" placeholder="Card information" />
-      <CustomInput label="Name on card" placeholder="Name on card" />
+    <Box className={classes.container}>
+      <Typography className={classes.title} variant="h6">
+        Pay with card
+      </Typography>
+
+      <CustomInput label="Email" placeholder="example@domain.com" />
+      <CustomInput label="Phone" placeholder="(201) 555-0123" />
+      <CardInfoInputs />
+      <CustomInput label="Name on card" placeholder="" />
       <CustomInput label="Billing address" placeholder="Billing address" />
-      <Button variant="contained">Pay</Button>
-    </div>
+
+      <Button className={classes.button} variant="contained">
+        Pay
+      </Button>
+    </Box>
   );
 }
