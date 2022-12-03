@@ -9,7 +9,7 @@ export function CardInfoInputs({ control }) {
       <CustomInput
         label="Card information"
         name="card"
-        placeholder="1234 1234 1234 1234 "
+        placeholder="1234 1234 1234 1234"
         control={control}
       />
       <div className={classes.secureData}>
