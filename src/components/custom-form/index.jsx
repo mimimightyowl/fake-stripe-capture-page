@@ -6,6 +6,7 @@ import { CardInfoInputs } from "../card-info-inputs";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { CustomPhoneInput } from "../custom-phone-input";
+import { BillingAddressInputs } from "../billing-address-inputs";
 import { useForm } from "react-hook-form";
 export function CustomForm() {
   const { handleSubmit, control } = useForm();
@@ -33,10 +34,7 @@ export function CustomForm() {
           placeholder=""
           control={control}
         />
-        <CustomInput
-          label="Billing address"
-          name="address"
-          placeholder="Billing address"
+        <BillingAddressInputs
           control={control}
         />
         <Button
