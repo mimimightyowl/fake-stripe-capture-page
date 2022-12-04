@@ -8,8 +8,13 @@ import Box from "@mui/material/Box";
 import { CustomPhoneInput } from "../custom-phone-input";
 import { BillingAddressInputs } from "../billing-address-inputs";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { paymentSchema } from "../../validation/payment-schema";
 export function CustomForm() {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(paymentSchema),
+  });
 
   const onSubmit = (data) => console.log(data);
   const { classes } = useStyles();
@@ -34,9 +39,7 @@ export function CustomForm() {
           placeholder=""
           control={control}
         />
-        <BillingAddressInputs
-          control={control}
-        />
+        <BillingAddressInputs control={control} />
         <Button
           className={classes.button}
           variant="contained"

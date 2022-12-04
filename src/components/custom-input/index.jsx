@@ -3,7 +3,7 @@ import Input from "@mui/material/Input";
 import Typography from "@mui/material/Typography";
 import { useStyles } from "./styles";
 import { Controller } from "react-hook-form";
-import { formatInput } from "../../utils/formatInput";
+import { formatInput } from "../../utils/format-input";
 export function CustomInput({ label, name, placeholder, control }) {
   const { classes } = useStyles();
 
