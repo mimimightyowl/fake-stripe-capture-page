@@ -5,7 +5,6 @@ import { useStyles } from "./styles";
 import { CardInfoInputs } from "../card-info-inputs";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { CustomPhoneInput } from "../custom-phone-input";
 import { BillingAddressInputs } from "../billing-address-inputs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
@@ -31,7 +30,12 @@ export function CustomForm() {
           placeholder="example@domain.com"
           control={control}
         />
-        <CustomPhoneInput control={control} />
+        <CustomInput
+          label="Phone"
+          name="phone"
+          placeholder="+(201) 555-0123"
+          control={control}
+        />
         <CardInfoInputs control={control} />
         <CustomInput
           label="Name on card"
