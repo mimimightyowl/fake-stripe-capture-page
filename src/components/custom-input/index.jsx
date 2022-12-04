@@ -13,14 +13,21 @@ export function CustomInput({ label, name, placeholder, control }) {
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange, value } }) => {
+        render={({ field: { onChange, value }, fieldState: { error } }) => {
           return (
-            <Input
-              className={classes.input}
-              placeholder={placeholder}
-              value={formatInput(value || "", name) || ""}
-              onChange={onChange}
-            />
+            <>
+              <Input
+                className={classes.input}
+                placeholder={placeholder}
+                value={formatInput(value || "", name) || ""}
+                onChange={onChange}
+              />
+              {error && (
+                <Typography variant="caption" className={classes.error}>
+                  {error.message}
+                </Typography>
+              )}
+            </>
           );
         }}
       />

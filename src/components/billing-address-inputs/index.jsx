@@ -13,7 +13,7 @@ export function BillingAddressInputs({ control }) {
         control={control}
       />
       <div className={classes.additionalData}>
-        <CustomInput placeholder="Postal code" name="zip-code" control={control} />
+        <CustomInput placeholder="Postal code" name="zipcode" control={control} />
         <CustomInput placeholder="City" name="city" control={control} />
       </div>
     </div>
