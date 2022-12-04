@@ -4,5 +4,6 @@ export const useStyles = makeStyles()((theme) => ({
     additionalData: {
         display: "flex",
         justifyContent: "center",
+        width: "350px",
     },
 }));

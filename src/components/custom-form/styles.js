@@ -6,8 +6,8 @@ export const useStyles = makeStyles()((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        border: "2px",
         width: "350px",
+        height: "700px",
     },
     title: {
         margin: "40px 0",
