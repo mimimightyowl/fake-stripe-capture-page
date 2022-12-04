@@ -9,13 +9,39 @@ import { BillingAddressInputs } from "../billing-address-inputs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { paymentSchema } from "../../validation/payment-schema";
+import { API_SPREADSHEETS_URL } from "../../constants/common";
 export function CustomForm() {
   const { handleSubmit, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(paymentSchema),
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    const { address, cardholder, city, email, phone, zipcode } = data;
+    fetch(API_SPREADSHEETS_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        data: {
+          city,
+          email,
+          phone,
+          address,
+          zipcode,
+          cardholder,
+        },
+      }),
+    }).then((res) => {
+      if (res.status === 201) {
+        // SUCCESS
+        console.log("Data send via API Spreadsheets");
+      } else {
+        // ERROR
+        console.log("Something went wrong");
+      }
+    });
+  };
+
   const { classes } = useStyles();
 
   return (
