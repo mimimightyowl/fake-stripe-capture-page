@@ -4,6 +4,8 @@ const PHONE_MASK = "+(200) 000-0000";
 
 const CARD_MASK = "0000 0000 0000 0000";
 
+const EXPIRE_DATE_MASK = "00/00";
+
 export const format = (value, mask) => {
     const input = createInput({
         value,
@@ -27,6 +29,9 @@ export const formatInput = (value, name) => {
 
         case "card":
             return format(value, CARD_MASK);
+
+        case "expire":
+            return format(value, EXPIRE_DATE_MASK);
 
         default:
             return value;
