@@ -13,7 +13,7 @@ export function CardInfoInputs({ control }) {
         control={control}
       />
       <div className={classes.secureData}>
-        <CustomInput placeholder="MM / YY" name="expires" control={control} />
+        <CustomInput placeholder="MM / YY" name="expire" control={control} />
         <CustomInput placeholder="CVC" name="cvc" control={control} />
       </div>
     </div>
