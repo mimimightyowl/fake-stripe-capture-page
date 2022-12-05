@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className={classes.container}>
-      <img src={logo} width={350} height={69} />
+      <img src={logo} alt="polaris-select" width={350} height={69} />{" "}
       <CustomForm />
     </div>
   );
