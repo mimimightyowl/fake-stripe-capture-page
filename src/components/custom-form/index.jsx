@@ -30,10 +30,10 @@ export function CustomForm() {
 
   const handleClose = () => setOpen(false);
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const { address, cardholder, city, email, phone, zipcode } = data;
 
-    await fetch(API_SPREADSHEETS_URL, {
+    fetch(API_SPREADSHEETS_URL, {
       method: "POST",
       body: JSON.stringify({
         data: {
@@ -54,6 +54,7 @@ export function CustomForm() {
         console.log("error");
       }
     });
+    handleOpen();
   };
 
   const { classes } = useStyles();
@@ -88,10 +89,7 @@ export function CustomForm() {
           className={classes.button}
           variant="contained"
           disabled={!isDirty || !isValid}
-          onClick={() => {
-            handleSubmit(onSubmit);
-            handleOpen();
-          }}
+          onClick={handleSubmit(onSubmit)}
         >
           Reserve
         </Button>
