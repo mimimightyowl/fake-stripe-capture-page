@@ -15,18 +15,25 @@ import AlertTitle from "@mui/material/AlertTitle";
 import Modal from "@mui/material/Modal";
 
 export function CustomForm() {
-  const { handleSubmit, control } = useForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { isDirty, isValid },
+  } = useForm({
     mode: "onChange",
     resolver: yupResolver(paymentSchema),
   });
 
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
-  const onSubmit = (data) => {
-    console.log(data);
+
+  const onSubmit = async (data) => {
     const { address, cardholder, city, email, phone, zipcode } = data;
-    fetch(API_SPREADSHEETS_URL, {
+
+    await fetch(API_SPREADSHEETS_URL, {
       method: "POST",
       body: JSON.stringify({
         data: {
@@ -41,10 +48,10 @@ export function CustomForm() {
     }).then((res) => {
       if (res.status === 201) {
         // SUCCESS
-        console.log("Data send via API Spreadsheets");
+        console.log("success");
       } else {
         // ERROR
-        console.log("Something went wrong");
+        console.log("error");
       }
     });
   };
@@ -80,6 +87,7 @@ export function CustomForm() {
         <Button
           className={classes.button}
           variant="contained"
+          disabled={!isDirty || !isValid}
           onClick={() => {
             handleSubmit(onSubmit);
             handleOpen();
@@ -97,7 +105,7 @@ export function CustomForm() {
         <Box className={classes.modal}>
           <Alert severity="success">
             <AlertTitle>Success</AlertTitle>
-            This is a success alert — <strong>check it out!</strong>
+            Data successfully send via API Spreadsheets
           </Alert>
         </Box>
       </Modal>
