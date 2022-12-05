@@ -93,7 +93,7 @@ export function CustomForm() {
             handleOpen();
           }}
         >
-          Pay
+          Reserve
         </Button>
       </form>
       <Modal
