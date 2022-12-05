@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CustomInput } from "../custom-input";
 import Button from "@mui/material/Button";
 import { useStyles } from "./styles";
@@ -10,12 +10,19 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { paymentSchema } from "../../validation/payment-schema";
 import { API_SPREADSHEETS_URL } from "../../constants/common";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Modal from "@mui/material/Modal";
+
 export function CustomForm() {
   const { handleSubmit, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(paymentSchema),
   });
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const onSubmit = (data) => {
     console.log(data);
     const { address, cardholder, city, email, phone, zipcode } = data;
@@ -73,11 +80,27 @@ export function CustomForm() {
         <Button
           className={classes.button}
           variant="contained"
-          onClick={handleSubmit(onSubmit)}
+          onClick={() => {
+            handleSubmit(onSubmit);
+            handleOpen();
+          }}
         >
           Pay
         </Button>
       </form>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className={classes.modal}>
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success alert — <strong>check it out!</strong>
+          </Alert>
+        </Box>
+      </Modal>
     </Box>
   );
 }

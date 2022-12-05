@@ -6,5 +6,6 @@ export const useStyles = makeStyles()((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        flexDirection: 'column'
     },
 }));
