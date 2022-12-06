@@ -39,7 +39,7 @@ export function CustomForm() {
         data: {
           city,
           email,
-          phone,
+          phone: phone.slice(1),
           address,
           zipcode,
           cardholder,
