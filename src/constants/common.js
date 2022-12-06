@@ -1,2 +1,2 @@
 export const API_SPREADSHEETS_URL =
-    "https://api.apispreadsheets.com/data/2ILUxfEIoQoTX5FE/";
+    "https://www.apispreadsheets.com/table/fcUp5yg5qn1oP08M/";
