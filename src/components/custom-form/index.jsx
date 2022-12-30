@@ -26,8 +26,8 @@ export function CustomForm() {
     resolver: yupResolver(paymentSchema),
   });
   const [isReserveEnabled, setIsReserveEnabled] = useState(false);
-  const [countDown, setCountDown] = useState(5);
-  const [reservationStatus, setReservationStatus] = useState(false)
+  const [countDown, setCountDown] = useState(4);
+  const [reservationStatus, setReservationStatus] = useState(false);
 
   const [openSwipeAlert, setOpenSwipeAlert] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -71,7 +71,7 @@ export function CustomForm() {
         // SUCCESS
         console.log("success");
         handleOpenSuccessModal();
-        setReservationStatus(true)
+        setReservationStatus(true);
       } else {
         // ERROR
         console.log("error");
