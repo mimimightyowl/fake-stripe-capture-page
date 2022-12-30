@@ -27,6 +27,7 @@ export function CustomForm() {
   });
   const [isReserveEnabled, setIsReserveEnabled] = useState(false);
   const [countDown, setCountDown] = useState(5);
+  const [reservationStatus, setReservationStatus] = useState(false)
 
   const [openSwipeAlert, setOpenSwipeAlert] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -69,12 +70,13 @@ export function CustomForm() {
       if (res.status === 201) {
         // SUCCESS
         console.log("success");
+        handleOpenSuccessModal();
+        setReservationStatus(true)
       } else {
         // ERROR
         console.log("error");
       }
     });
-    handleOpenSuccessModal();
   };
 
   const { classes } = useStyles();
@@ -109,10 +111,11 @@ export function CustomForm() {
         <Button
           className={classes.reserveButton}
           variant="contained"
-          disabled={!isReserveEnabled}
+          disabled={!(isReserveEnabled && !reservationStatus)}
           onClick={handleSubmit(onSubmit)}
         >
-          Reserve
+          {!reservationStatus && `Reserve`}
+          {reservationStatus && `Your reservation is confirmed.`}
         </Button>
       </form>
       <Modal
