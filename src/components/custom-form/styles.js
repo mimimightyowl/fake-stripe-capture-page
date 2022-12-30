@@ -12,8 +12,12 @@ export const useStyles = makeStyles()((theme) => ({
     title: {
         margin: "40px 0",
     },
-    button: {
+    swipeButton: {
         margin: "40px 0",
+        width: "100%",
+    },
+    reserveButton: {
+        margin: "0 0 40px 0",
         width: "100%",
     },
     modal: {

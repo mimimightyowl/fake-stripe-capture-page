@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { CustomInput } from "../custom-input";
 import Button from "@mui/material/Button";
 import { useStyles } from "./styles";
-import { CardInfoInputs } from "../card-info-inputs";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { BillingAddressInputs } from "../billing-address-inputs";
@@ -14,6 +13,8 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Modal from "@mui/material/Modal";
 
+const SWIPE_CARD_DELAY_MS = 4000;
+
 export function CustomForm() {
   const {
     handleSubmit,
@@ -23,15 +24,27 @@ export function CustomForm() {
     mode: "onChange",
     resolver: yupResolver(paymentSchema),
   });
+  const [isReserveEnabled, setIsReserveEnabled] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  const [openSwipeAlert, setOpenSwipeAlert] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpenSwipeAlert = () => setOpenSwipeAlert(true);
+  const handleOpenSuccessModal = () => setOpenSuccessModal(true);
 
-  const handleClose = () => setOpen(false);
+  const handleCloseSwipeAlert = () => setOpenSwipeAlert(false);
+  const handleCloseSuccessModal = () => setOpenSuccessModal(false);
+
+  const onSwipeCardButtonClick = () => {
+    handleOpenSwipeAlert();
+
+    setTimeout(() => {
+      setIsReserveEnabled(true);
+    }, SWIPE_CARD_DELAY_MS);
+  };
 
   const onSubmit = (data) => {
-    const { address, cardholder, city, email, phone, zipcode } = data;
+    const { address, city, email, phone, zipcode } = data;
 
     fetch(API_SPREADSHEETS_URL, {
       method: "POST",
@@ -42,7 +55,6 @@ export function CustomForm() {
           phone: phone.slice(1),
           address,
           zipcode,
-          cardholder,
         },
       }),
     }).then((res) => {
@@ -54,7 +66,7 @@ export function CustomForm() {
         console.log("error");
       }
     });
-    handleOpen();
+    handleOpenSuccessModal();
   };
 
   const { classes } = useStyles();
@@ -77,26 +89,40 @@ export function CustomForm() {
           placeholder="+(201) 555-0123"
           control={control}
         />
-        <CardInfoInputs control={control} />
-        <CustomInput
-          label="Name on card"
-          name="cardholder"
-          placeholder=""
-          control={control}
-        />
         <BillingAddressInputs control={control} />
         <Button
-          className={classes.button}
+          className={classes.swipeButton}
           variant="contained"
           disabled={!isDirty || !isValid}
+          onClick={handleSubmit(onSwipeCardButtonClick)}
+        >
+          Swipe Credit Card Now
+        </Button>
+        <Button
+          className={classes.reserveButton}
+          variant="contained"
+          disabled={!isReserveEnabled}
           onClick={handleSubmit(onSubmit)}
         >
           Reserve
         </Button>
       </form>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openSwipeAlert}
+        onClose={handleCloseSwipeAlert}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className={classes.modal}>
+          <Alert severity="info">
+            <AlertTitle>Ready to read you card!</AlertTitle>
+            Please swipe your card
+          </Alert>
+        </Box>
+      </Modal>
+      <Modal
+        open={openSuccessModal}
+        onClose={handleCloseSuccessModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
