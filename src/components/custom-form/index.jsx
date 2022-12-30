@@ -12,6 +12,7 @@ import { API_SPREADSHEETS_URL } from "../../constants/common";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Modal from "@mui/material/Modal";
+import { useInterval } from "../../utils/use-interval";
 
 const SWIPE_CARD_DELAY_MS = 4000;
 
@@ -25,6 +26,7 @@ export function CustomForm() {
     resolver: yupResolver(paymentSchema),
   });
   const [isReserveEnabled, setIsReserveEnabled] = useState(false);
+  const [countDown, setCountDown] = useState(5);
 
   const [openSwipeAlert, setOpenSwipeAlert] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
@@ -42,6 +44,12 @@ export function CustomForm() {
       setIsReserveEnabled(true);
     }, SWIPE_CARD_DELAY_MS);
   };
+
+  useInterval(() => {
+    if (openSwipeAlert && countDown > 0) {
+      setCountDown(countDown - 1);
+    }
+  }, 1000);
 
   const onSubmit = (data) => {
     const { address, city, email, phone, zipcode } = data;
@@ -116,7 +124,8 @@ export function CustomForm() {
         <Box className={classes.modal}>
           <Alert severity="info">
             <AlertTitle>Ready to read you card!</AlertTitle>
-            Please swipe your card
+            {countDown > 0 && `Please swipe your card within ${countDown}`}
+            {countDown === 0 && `Completed!`}
           </Alert>
         </Box>
       </Modal>
