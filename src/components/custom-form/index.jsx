@@ -43,6 +43,7 @@ export function CustomForm() {
 
     setTimeout(() => {
       setIsReserveEnabled(true);
+      setOpenSwipeAlert(false)
     }, SWIPE_CARD_DELAY_MS);
   };
 
@@ -132,7 +133,7 @@ export function CustomForm() {
       >
         <Box className={classes.modal}>
           <Alert severity="info">
-            <AlertTitle>Ready to read you card!</AlertTitle>
+            <AlertTitle>Ready to read your card!</AlertTitle>
             {countDown > 0 && `Please swipe your card within ${countDown}`}
             {countDown === 0 && `Completed!`}
           </Alert>
@@ -147,7 +148,7 @@ export function CustomForm() {
         <Box className={classes.modal}>
           <Alert severity="success">
             <AlertTitle>Success</AlertTitle>
-            Data successfully send via API Spreadsheets
+            Your reservation is confirmed.
           </Alert>
         </Box>
       </Modal>
