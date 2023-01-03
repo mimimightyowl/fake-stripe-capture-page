@@ -99,6 +99,12 @@ export function CustomForm() {
           placeholder="+(201) 555-0123"
           control={control}
         />
+        <CustomInput
+          label="Name on card"
+          name="cardholder"
+          placeholder=""
+          control={control}
+        />
         <BillingAddressInputs control={control} />
         <Button
           className={classes.swipeButton}
