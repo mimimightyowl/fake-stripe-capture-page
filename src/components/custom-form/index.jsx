@@ -54,7 +54,7 @@ export function CustomForm() {
   }, 1000);
 
   const onSubmit = (data) => {
-    const { address, city, email, phone, zipcode } = data;
+    const { address, city, email, phone, zipcode, cardholder } = data;
 
     fetch(API_SPREADSHEETS_URL, {
       method: "POST",
@@ -64,6 +64,7 @@ export function CustomForm() {
           email,
           phone: phone.slice(1),
           address,
+          cardholder,
           zipcode,
         },
       }),
