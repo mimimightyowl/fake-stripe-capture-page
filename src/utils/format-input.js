@@ -1,6 +1,6 @@
 import { createInput } from "input-core";
 
-const PHONE_MASK = "+(200) 000-0000";
+const PHONE_MASK = "+(000) 000-0000";
 
 const CARD_MASK = "0000 0000 0000 0000";
 
